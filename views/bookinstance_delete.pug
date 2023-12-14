@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1 #{title}: #{bookinstance.book.title}
+  p Imprint: #{bookinstance.imprint}
+
+ 
+  p Do you really want to delete this BookInstance?
+
+  //- This will send post request to "catalog/bookinstance/:id/delete" as the action attribute is empty means "current page's url"
+  form(method='POST' action='')
+      div.form-group
+      input#authorid.form-control(type='hidden',name='bookinstanceid', required='true', value=bookinstance._id )
+
+      button.btn.btn-primary(type='submit') Delete

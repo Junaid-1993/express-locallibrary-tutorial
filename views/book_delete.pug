@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  h1 #{title}: #{book.title}
+  p Author: #{book.author.name}
+
+  if book_instances.length
+
+    p #[strong Delete the following bookInstances before attempting to delete this book.]
+
+    div(style='margin-left:20px;margin-top:20px')
+
+      h4 BookInstances
+
+      dl
+      each bookinstance in book_instances
+        dt
+          a(href=book.url) #{bookinstance.book.title}
+        dd #{bookinstance.book.summary}
+
+  else
+    p Do you really want to delete this Book?
+    
+    //- This will send post request to "catalog/book/:id/delete" as the action attribute is empty means "current page's url"
+    form(method='POST' action='')
+      div.form-group
+        input#authorid.form-control(type='hidden',name='bookid', required='true', value=book._id )
+
+      button.btn.btn-primary(type='submit') Delete
